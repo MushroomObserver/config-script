@@ -1,7 +1,21 @@
 #!/bin/bash
 
+gem install rails --version=2.1.1 --verbose --no-rdoc --no-ri
+gem install mysql --verbose --no-rdoc --no-ri
+gem install mysql2 --version=0.2.18 --verbose --no-rdoc --no-ri
+gem install test-unit --verbose --no-rdoc --no-ri
+gem install RedCloth --verbose --no-rdoc --no-ri
+gem install sparql --verbose --no-rdoc --no-ri
+su vagrant
 mkdir -p /var/web
 cd /var/web
-git clone https://github.com/MushroomObserver/mushroom-observer.git
-cd mushroom-observer
+if [ -d mushroom-observer ];
+	then
+		cd mushroom-observer; git pull
+	else
+		git clone https://github.com/MushroomObserver/mushroom-observer.git
+		cd mushroom-observer
+fi
+
+mysql -u root -proot < db/initialize.sql
 script/run_tests
