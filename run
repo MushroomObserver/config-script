@@ -16,7 +16,7 @@ if [ -d mushroom-observer ];
 		cd mushroom-observer
 fi
 mysql -u root -proot < db/initialize.sql
-mysql -u mo -pmo < /vagrant/checkpoint.sql
+mysql -u mo -pmo mo_development < /vagrant/checkpoint.sql
 rake lang:update
 script/run_tests
 chown -R vagrant:vagrant /var/web/mushroom-observer
