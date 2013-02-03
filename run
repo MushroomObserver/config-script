@@ -6,7 +6,6 @@ gem install mysql2 --version=0.2.18 --verbose --no-rdoc --no-ri
 gem install test-unit --verbose --no-rdoc --no-ri
 gem install RedCloth --verbose --no-rdoc --no-ri
 gem install sparql --verbose --no-rdoc --no-ri
-su vagrant
 mkdir -p /var/web
 cd /var/web
 if [ -d mushroom-observer ];
@@ -16,6 +15,8 @@ if [ -d mushroom-observer ];
 		git clone https://github.com/MushroomObserver/mushroom-observer.git
 		cd mushroom-observer
 fi
-
 mysql -u root -proot < db/initialize.sql
+mysql -u mo -pmo < /vagrant/checkpoint.sql
+rake lang:update
 script/run_tests
+chown -R vagrant:vagrant /var/web/mushroom-observer
