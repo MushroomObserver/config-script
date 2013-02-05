@@ -18,5 +18,4 @@ mysql -u root -proot < db/initialize.sql
 mysql -u mo -pmo mo_development < /vagrant/init.sql
 rake db:migrate
 rake lang:update
-# script/run_tests
-chown -R vagrant:vagrant /var/web/mushroom-observer
+chown -R vagrant:vagrant /vagrant/mushroom-observer
