@@ -6,8 +6,7 @@ gem install mysql2 --version=0.2.18 --verbose --no-rdoc --no-ri --conservative
 gem install test-unit --verbose --no-rdoc --no-ri --conservative
 gem install RedCloth --verbose --no-rdoc --no-ri --conservative
 gem install sparql --verbose --no-rdoc --no-ri --conservative
-mkdir -p /var/web
-cd /var/web
+cd /vagrant
 if [ -d mushroom-observer ];
 	then
 		cd mushroom-observer; git pull
