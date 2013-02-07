@@ -16,7 +16,7 @@ if [ -d mushroom-observer ];
 fi
 mysql -u root -proot < db/initialize.sql
 mysql -u mo -pmo mo_development < /vagrant/init.sql
-apt-get install imagemagick libmagickcore-dev libmagickwand-dev libjpeg-dev libjpeg-progs
+apt-get install -y -q imagemagick libmagickcore-dev libmagickwand-dev libjpeg-dev libjpeg-progs
 gem install rmagick --verbose --no-rdoc --no-ri --conservative
 if [ -f /usr/local/sbin/jpegresize ];
 	then
