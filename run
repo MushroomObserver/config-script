@@ -16,6 +16,21 @@ if [ -d mushroom-observer ];
 fi
 mysql -u root -proot < db/initialize.sql
 mysql -u mo -pmo mo_development < /vagrant/init.sql
+apt-get install imagemagick libmagickcore-dev libmagickwand-dev libjpeg-dev libjpeg-progs
+gem install rmagick --verbose --no-rdoc --no-ri --conservative
+if [ -f /usr/local/sbin/jpegresize ];
+	then
+		gcc script/jpegresize.c -ljpeg -lm -O2 -o /usr/local/sbin/jpegresize
+fi
+if [ -f /usr/local/sbin/jpegexiforient ];
+	then
+	  gcc script/jpegexiforient.c -o /usr/local/sbin/jpegexiforient
+fi
+if [ -f /usr/local/sbin/exifautotran ];
+	then
+    cp script/exifautotran.sh /usr/local/sbin/exifautotran; chmod 755 /usr/local/sbin/exifautotran
+fi
+
 rake db:migrate
 rake lang:update
 chown -R vagrant:vagrant /vagrant/mushroom-observer
