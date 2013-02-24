@@ -15,6 +15,7 @@ if [ -d mushroom-observer ];
 		git clone https://github.com/MushroomObserver/mushroom-observer.git
 		cd mushroom-observer
 fi
+cp $dir/config-script/database.yml config
 mysql -u root -proot < db/initialize.sql
 mysql -u mo -pmo mo_development < $dir/config-script/init.sql
 apt-get install -y -q imagemagick libmagickcore-dev libmagickwand-dev libjpeg-dev libjpeg-progs
