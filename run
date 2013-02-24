@@ -16,9 +16,6 @@ if [ -d mushroom-observer ];
 		cd mushroom-observer
 fi
 cp $dir/config-script/database.yml config
-sleep 30
-mysql -u root -proot < db/initialize.sql
-mysql -u mo -pmo mo_development < $dir/config-script/init.sql
 apt-get install -y -q imagemagick libmagickcore-dev libmagickwand-dev libjpeg-dev libjpeg-progs
 gem install rmagick --verbose --no-rdoc --no-ri --conservative
 if [ -f /usr/local/sbin/jpegresize ];
@@ -34,6 +31,8 @@ if [ -f /usr/local/sbin/exifautotran ];
     cp script/exifautotran.sh /usr/local/sbin/exifautotran; chmod 755 /usr/local/sbin/exifautotran
 fi
 
+mysql -u root -proot < db/initialize.sql
+mysql -u mo -pmo mo_development < $dir/config-script/init.sql
 rake db:migrate
 rake lang:update
 chown -R vagrant:vagrant /vagrant/mushroom-observer
