@@ -12,7 +12,7 @@ RUN_RAKE=1
 if [ -d mushroom-observer ];
 	then
 		cd mushroom-observer
-		if [ `git pull` = 'Already up-to-date.' ]; then RUN_RAKE=0; fi
+		if [ "`git pull`" = "Already up-to-date." ]; then RUN_RAKE=0; fi
 	else
 		git clone https://github.com/MushroomObserver/mushroom-observer.git
 		mysql -u root -proot < db/initialize.sql
