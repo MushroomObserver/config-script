@@ -12,14 +12,14 @@ RUN_RAKE=1
 if [ -d mushroom-observer ];
 	then
 		cd mushroom-observer
-		if [ `git pull` == 'Already up-to-date.' ]; RUN_RAKE==0; fi
+		if [ `git pull` = 'Already up-to-date.' ]; then RUN_RAKE==0; fi
 	else
 		git clone https://github.com/MushroomObserver/mushroom-observer.git
 		mysql -u root -proot < db/initialize.sql
     mysql -u mo -pmo mo_development < $dir/config-script/init.sql
 		cd mushroom-observer
 fi
-if ["RUN_RAKE" = 0]; rake db:migrate; rake lang:update; fi
+if ["RUN_RAKE" = 0]; then rake db:migrate; rake lang:update; fi
 cp $dir/config-script/database.yml config
 apt-get install -y -q imagemagick libmagickcore-dev libmagickwand-dev libjpeg-dev libjpeg-progs
 gem install rmagick --verbose --no-rdoc --no-ri --conservative
