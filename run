@@ -31,6 +31,7 @@ if [ -f /usr/local/sbin/exifautotran ];
     cp script/exifautotran.sh /usr/local/sbin/exifautotran; chmod 755 /usr/local/sbin/exifautotran
 fi
 
+sleep 10
 mysql -u root -proot < db/initialize.sql
 mysql -u mo -pmo mo_development < $dir/config-script/init.sql
 rake db:migrate
