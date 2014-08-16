@@ -18,6 +18,7 @@ if [ -d mushroom-observer ];
 		cd mushroom-observer
 		mysql -u root -proot < db/initialize.sql # Move to config-script?
 		mysql -u mo -pmo mo_development < $dir/config-script/init.sql
+    mkdir public/images/{thumb,320,640,960,1280,orig}
 fi
 
 cp $dir/config-script/database.yml config
@@ -29,17 +30,17 @@ if [ "$RUN_RAKE" = 1 ]; then rake db:migrate; rake lang:update; fi
 
 apt-get install -y -q imagemagick libmagickcore-dev libmagickwand-dev libjpeg-dev libjpeg-progs
 gem install rmagick --verbose --no-rdoc --no-ri --conservative
-if [ -f /usr/local/sbin/jpegresize ];
+if [ -f /usr/local/bin/jpegresize ];
 	then
-		gcc script/jpegresize.c -ljpeg -lm -O2 -o /usr/local/sbin/jpegresize
+		gcc script/jpegresize.c -ljpeg -lm -O2 -o /usr/local/bin/jpegresize
 fi
-if [ -f /usr/local/sbin/jpegexiforient ];
+if [ -f /usr/local/bin/jpegexiforient ];
 	then
-	  gcc script/jpegexiforient.c -o /usr/local/sbin/jpegexiforient
+	  gcc script/jpegexiforient.c -o /usr/local/bin/jpegexiforient
 fi
-if [ -f /usr/local/sbin/exifautotran ];
+if [ -f /usr/local/bin/exifautotran ];
 	then
-    cp script/exifautotran.sh /usr/local/sbin/exifautotran; chmod 755 /usr/local/sbin/exifautotran
+    cp script/exifautotran.sh /usr/local/bin/exifautotran; chmod 755 /usr/local/bin/exifautotran
 fi
 
 chown -R vagrant:vagrant /vagrant/mushroom-observer
