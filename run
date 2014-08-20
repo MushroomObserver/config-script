@@ -1,12 +1,6 @@
 #!/bin/bash
 
 dir=$PWD
-gem install rails --version=2.1.1 --verbose --no-rdoc --no-ri --conservative
-gem install mysql --verbose --no-rdoc --no-ri --conservative
-gem install mysql2 --version=0.2.18 --verbose --no-rdoc --no-ri --conservative
-gem install test-unit --verbose --no-rdoc --no-ri --conservative
-gem install RedCloth --verbose --no-rdoc --no-ri --conservative
-gem install sparql --verbose --no-rdoc --no-ri --conservative
 cd /vagrant
 RUN_RAKE=1
 if [ -d mushroom-observer ];
@@ -23,13 +17,14 @@ fi
 
 cp $dir/config-script/database.yml config
 
-# Althrough it should be safe to run these, making it conditional to avoid
-# a race condition with mysql becoming available.  If mysql reports a failure,
-# go to the vagrant box and run these rake commands by hand.
-if [ "$RUN_RAKE" = 1 ]; then rake db:migrate; rake lang:update; fi
-
 apt-get install -y -q imagemagick libmagickcore-dev libmagickwand-dev libjpeg-dev libjpeg-progs
 gem install rmagick --verbose --no-rdoc --no-ri --conservative
+
+# Althrough it should be safe to run these, making it conditional to avoid
+# a race condition with mysql becoming available.  If mysql reports a failure,
+# go to the vagrant box and run these commands by hand.
+if [ "$RUN_RAKE" = 1 ]; then bundle install; rake db:migrate; rake lang:update; fi
+
 if [ ! -f /usr/local/bin/jpegresize ];
 	then
 		gcc script/jpegresize.c -ljpeg -lm -O2 -o /usr/local/bin/jpegresize
