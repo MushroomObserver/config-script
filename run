@@ -18,12 +18,12 @@ fi
 cp $dir/config-script/database.yml config
 
 apt-get install -y -q imagemagick libmagickcore-dev libmagickwand-dev libjpeg-dev libjpeg-progs
-gem install rmagick --verbose --no-rdoc --no-ri --conservative
+# gem install rmagick --verbose --no-rdoc --no-ri --conservative
 
 # Althrough it should be safe to run these, making it conditional to avoid
 # a race condition with mysql becoming available.  If mysql reports a failure,
 # go to the vagrant box and run these commands by hand.
-if [ "$RUN_RAKE" = 1 ]; then bundle install; rake db:migrate; rake lang:update; fi
+# if [ "$RUN_RAKE" = 1 ]; then bundle install; rake db:migrate; rake lang:update; fi
 
 if [ ! -f /usr/local/bin/jpegresize ];
 	then
